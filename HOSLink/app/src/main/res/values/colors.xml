@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--start status button color-->
+    <color name="statusStrokeColor">#FFFFFF</color>
+    <color name="statusSelectedColorCenter">#183466</color>
+    <color name="statusSelectedColorStart">#183466</color>
+    <color name="statusSelectedColorEnd">#183466</color>
+    <color name="statusUnselectedColorCenter">#6cc128</color>
+    <color name="statusUnselectedColorStart">#53ab0c</color>
+    <color name="statusUnselectedColorEnd">#53ab0c</color>
+    <color name="statusDisabledColorCenter">#d3d3d3</color>
+    <color name="statusDisabledColorStart">#bdbdbd</color>
+    <color name="statusDisabledColorEnd">#bdbdbd</color>
+    <!--end status button color-->
+
+
+
+    <!--start pie colors-->
+    <color name="donutOk">#1fed2c</color>
+    <color name="donutFirstWarning">#FFFFFF00</color>
+    <color name="donutSecondWarning">#FFFF0000</color>
+    <color name="donutBackground">#d3d3d3</color>
+    <!--end pie colors-->
+    <color name="more_button_background">#ffcfd8dc</color>
+    <color name="text_duty_status_button_color">@color/black</color>
+    <color name="checkBoxColorTint">#726E6E</color>
+
+
+    <color name="white_text_button">#FFFFFF</color>
+    <color name="colorWidget">#8D383737</color>
+
+
+    <!--Events Status colors-->
+    <color name="add_event_background">#9FDD6D</color>
+    <color name="edit_event_background">#00AFFF</color>
+    <color name="delete_event_background">#E18888</color>
+
+    <color name="cyan_a700_plus">#ff006574</color>
+    <color name="colorBackground">#EBFFFFFF</color>
+    <color name="colorTransparent">#00FFFFFF</color>
+
+
+
+    <color name="color_off">#FF8888</color>
+    <color name="color_sleeper">#F4D063</color>
+    <color name="color_driving">#9FDD6D</color>
+    <color name="color_on">#00AFFF</color>
+    <color name="color_allow_condition">#D6D1A4</color>
+    <color name="color_intermediate">#5EB4BF</color>
+
+    <color name="colorWhiteTransparent">#D5FFFFFF</color>
+    <color name="tw__transparent">#00000000</color>
+    <color name="green">#009900</color>
+    <color name="text_color_black">#2A2B2A</color>
+    <color name="darkest_gray">#555</color>
+    <color name="blackTransparent">#B3000000</color>
+
+    <color name="statusBlueColor">#3d92a4</color>
+    <color name="statusGreenColor">#27a743</color>
+    <color name="statusYellowColor">#fec107</color>
+    <color name="statusRedColor">#db3544</color>
+
+    <color name="listDivider">#cccccc</color>
+    <color name="gray">#f1f1f1</color>
+</resources>

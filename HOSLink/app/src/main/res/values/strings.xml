@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">HOS Link</string>
+    <string name="tractor_vin">--> Tractor VIN</string>
+
+    <!--diagnostic-->
+    <string name="diagnostic">Diagnostic</string>
+    <string name="location_availability">Location Availability</string>
+    <string name="storage_space">Storage Space</string>
+    <string name="battery_level">Battery Level</string>
+    <string name="bluetooth_connection">Bluetooth Connection</string>
+    <string name="engine_data">--> Engine Data</string>
+    <string name="rpm">--> RPM</string>
+    <string name="speed">--> Speed</string>
+    <string name="engine_hours">--> Engine Hours</string>
+    <string name="odometer">--> Odometer</string>
+    <string name="doing_automatic_diagnostic">Doing automatic diagnostic</string>
+    <string name="enable_gps_provider">Please, enable GPS Location on your device</string>
+    <string name="failure">Failure</string>
+    <string name="passed">Passed</string>
+    <string name="missing">Missing</string>
+    <string name="getting_location">Getting Location</string>
+    <string name="test">Run ELD Diagnostic</string>
+    <string name="firmware">--> Firmware</string>
+    <string name="mac_address">MAC Address</string>
+    <string name="app_version">App Version</string>
+    <string name="not_available">Not Available</string>
+    <string name="mph">mph</string>
+    <string name="kmh">km/h</string>
+    <string name="hours">Hours</string>
+    <string name="miles">Miles</string>
+    <string name="kilometers">Km</string>
+</resources>

@@ -1,0 +1,109 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp">
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/LabelTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/engine_data" />
+
+            <TextView
+                android:id="@+id/tvEngineData"
+                style="@style/DataTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <include
+            layout="@layout/custom_ecm_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp">
+
+            <TextView
+                style="@style/LabelTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tractor_vin" />
+
+            <TextView
+                android:id="@+id/tvVin"
+                style="@style/DataTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp">
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/LabelTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/firmware" />
+
+            <TextView
+                android:id="@+id/tvFirmware"
+                style="@style/DataTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="100dp">
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/device_scan"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true" android:state_pressed="true">
+        <shape>
+            <gradient android:angle="90" android:centerColor="@color/statusSelectedColorCenter" android:endColor="@color/statusSelectedColorEnd" android:startColor="@color/statusSelectedColorStart" />
+            <stroke android:width="2dip" android:color="@color/statusStrokeColor" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item android:state_enabled="true" android:state_selected="false">
+        <shape>
+            <gradient android:angle="90" android:centerColor="@color/statusUnselectedColorCenter" android:endColor="@color/statusUnselectedColorEnd" android:startColor="@color/statusUnselectedColorStart" />
+            <stroke android:width="2dip" android:color="@color/statusStrokeColor" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item android:state_enabled="true" android:state_selected="true">
+        <shape>
+            <gradient android:angle="90" android:centerColor="@color/statusSelectedColorCenter" android:endColor="@color/statusSelectedColorEnd" android:startColor="@color/statusSelectedColorStart" />
+            <stroke android:width="2dip" android:color="@color/statusStrokeColor" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape>
+            <gradient android:angle="90" android:centerColor="@color/statusDisabledColorCenter" android:endColor="@color/statusDisabledColorEnd" android:startColor="@color/statusDisabledColorStart" />
+            <stroke android:width="2dip" android:color="@color/statusStrokeColor" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+</selector>

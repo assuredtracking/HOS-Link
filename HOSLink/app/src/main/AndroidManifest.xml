@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.hos.hoslink">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HOSLink"
+        tools:targetApi="31"
+        android:name=".MyApplication">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainDashBoard"
+            android:configChanges="orientation|screenSize"
+            android:label="Main Dashboard"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".DiagnosticActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="Diagnostic Information"
+            android:windowSoftInputMode="stateHidden" />
+
+        <receiver
+            android:name=".receivers.ECMReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ACTION_ECM_VALUES" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receivers.ELDReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ACTION_ELD_RESPONSE" />
+                <action android:name="ACTION_DRIVERS_IN_ELD_RESPONSE" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
