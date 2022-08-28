@@ -193,6 +193,11 @@ ECM_FIRMWARE = "FIRMWARE";
 
 [MOO_Android_HOS_Link_Version_1.0_08282022.pdf](https://github.com/assuredtracking/HOS-Link/files/9438808/MOO_Android_HOS_Link_Version_1.0_08282022.pdf)
 
+APK HOS-Link
+
+[HOS-Link-Version-1.0.zip](https://github.com/assuredtracking/HOS-Link/files/9438857/HOS-Link-Version-1.0.zip)
+
+
 # Developed By
 
 - Assured Techmatics Developer Team
