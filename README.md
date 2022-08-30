@@ -195,7 +195,8 @@ ECM_FIRMWARE = "FIRMWARE";
 
 APK HOS-Link
 
-[HOS-Link-Version-1.0.zip](https://github.com/assuredtracking/HOS-Link/files/9438857/HOS-Link-Version-1.0.zip)
+
+[HOS-Link Version 1.0.zip](https://github.com/assuredtracking/HOS-Link/files/9454589/HOS-Link.Version.1.0.zip)
 
 
 # Developed By
