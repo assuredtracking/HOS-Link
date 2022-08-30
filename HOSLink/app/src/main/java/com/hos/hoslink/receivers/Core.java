@@ -6,6 +6,7 @@ public class Core {
     public static final String ACTION_ELD_RESPONSE = "ACTION_ELD_RESPONSE";
     public static final String ACTION_DRIVERS_IN_ELD_REQUEST = "ACTION_DRIVERS_IN_ELD_REQUEST";
     public static final String ACTION_DRIVERS_IN_ELD_RESPONSE = "ACTION_DRIVERS_IN_ELD_RESPONSE";
+    public static final String ACTION_ENABLE_ECM_VALUES = "ACTION_ENABLE_ECM_VALUES";
     public static final String TIME_FORMAT_TZ = "hh:mm:ss a (z)";
     public static final String ECM_ODO = "ODO";
     public static final String ECM_SPEED = "SPEED";

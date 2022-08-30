@@ -2,6 +2,7 @@ package com.hos.hoslink;
 
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -32,8 +33,24 @@ public class DiagnosticActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecm);
+        SendEnabledECMValues();
         LoadingUI();
         CreateObservers();
+    }
+
+    private void SendEnabledECMValues() {
+        try {
+            Intent intent = new Intent();
+            intent.setAction(Core.ACTION_ENABLE_ECM_VALUES);
+            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            intent.setPackage("apollo.hos");// Only if necessary after API 30 Android 11 (Package Name App Receiver)
+            Bundle bundle = new Bundle();
+            bundle.putString("packageName", MyApplication.GetAppContext().getPackageName());
+            //Broadcast to ELD app
+            sendBroadcast(intent);
+        }catch (Exception e){
+
+        }
     }
 
     private void CreateObservers() {

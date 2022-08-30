@@ -65,6 +65,7 @@ public class MainDashBoard extends AppCompatActivity {
                     bundle.putString("password", password);
                     bundle.putString("language", language);
                     bundle.putInt("coDriver", switchCoDriver.isChecked() ? 1 : 0);
+                    intent.setPackage("apollo.hos");// Only if necessary after API 30 Android 11 (Package Name App Receiver)
                     intent.putExtras(bundle);
                     //Broadcast to ELD app
                     sendBroadcast(intent);
@@ -89,6 +90,7 @@ public class MainDashBoard extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Core.ACTION_DRIVERS_IN_ELD_REQUEST);
                 intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                intent.setPackage("apollo.hos");// Only if necessary after API 30 Android 11 (Package Name App Receiver)
                 //Broadcast to ELD app
                 sendBroadcast(intent);
             }
