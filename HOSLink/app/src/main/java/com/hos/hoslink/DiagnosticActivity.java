@@ -46,6 +46,7 @@ public class DiagnosticActivity extends AppCompatActivity {
             intent.setPackage("apollo.hos");// Only if necessary after API 30 Android 11 (Package Name App Receiver)
             Bundle bundle = new Bundle();
             bundle.putString("packageName", MyApplication.GetAppContext().getPackageName());
+            intent.putExtras(bundle);
             //Broadcast to ELD app
             sendBroadcast(intent);
         }catch (Exception e){
