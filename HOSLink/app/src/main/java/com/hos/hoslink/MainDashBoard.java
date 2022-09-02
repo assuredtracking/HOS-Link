@@ -1,29 +1,25 @@
 package com.hos.hoslink;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.hos.hoslink.receivers.Core;
 
 public class MainDashBoard extends AppCompatActivity {
     LinearLayout llBtnELD, llBtnECM, llBtnDrivers;
     ImageView ivLogout;
     TextView tvUserName;
-    Switch switchCoDriver;
+    SwitchMaterial switchCoDriver;
     String user = "";
     String password = "";
     String language = "";
@@ -34,22 +30,13 @@ public class MainDashBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dash);
 
-        InitUI();
-        checkResponse();
-        LoadingUI();
-        LoadingEvents();
-    }
-
-    private void InitUI() {
-        user = GetValue("user");
-        password = GetValue("password");
-        language = GetValue("language");
-    }
-
-    private void checkResponse() {
         if (getIntent().getAction() != null && getIntent().getAction().equals(Core.ACTION_ELD_LOGIN_RESPONSE)){
-            if (getIntent().getIntExtra("code", 0) == 1)
-                Snackbar.make(findViewById(android.R.id.content), "Response code: " + getIntent().getIntExtra("code", 0) + ", Message: " + getIntent().getStringExtra("message"), Snackbar.LENGTH_LONG).show();
+            if (getIntent().getIntExtra("code", 0) == 1){
+                String text = "User Logged";
+                if(!getIntent().getStringExtra("message").isEmpty())
+                    text += getIntent().getStringExtra("message");
+                Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG).show();
+            }
         }
         else if (getIntent().getAction() != null && getIntent().getAction().equals(Core.ACTION_LOGOUT_DRIVER)){
             SaveKey("user", "");
@@ -59,9 +46,11 @@ public class MainDashBoard extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
 
-    private void LoadingUI() {
+        user = GetValue("user");
+        password = GetValue("password");
+        language = GetValue("language");
+
         llBtnELD = findViewById(R.id.llBtnELD);
         llBtnECM = findViewById(R.id.llBtnECM);
         llBtnDrivers = findViewById(R.id.llBtnDrivers);
@@ -69,9 +58,7 @@ public class MainDashBoard extends AppCompatActivity {
         tvUserName = findViewById(R.id.tvUserName);
         switchCoDriver = findViewById(R.id.switchCoDriver);
         btnLogout = findViewById(R.id.btnLogout);
-    }
 
-    private void LoadingEvents() {
         tvUserName.setText(user);
         switchCoDriver.setChecked(false);
 
@@ -172,6 +159,5 @@ public class MainDashBoard extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intentLogged = getIntent();
     }
 }

@@ -1,6 +1,6 @@
 package com.hos.hoslink.receivers;
 
-import static android.content.ContentValues.TAG;
+import static com.hos.hoslink.MainDashBoard.SaveKey;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,7 +25,7 @@ public class ELDReceiver extends BroadcastReceiver {
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     i.setAction(Core.ACTION_ELD_LOGIN_RESPONSE);
                     context.startActivity(i);
-                    if (bundle.getInt("code") == 1){
+                    if (bundle.getInt("code") == 0){
                         Toast.makeText(context, "Response code: " + bundle.getInt("code") + ", Message: " + bundle.getString("message"), Toast.LENGTH_LONG).show();
                     }
                 }
@@ -68,9 +68,14 @@ public class ELDReceiver extends BroadcastReceiver {
             intent.setAction(action);
             intent.putExtras(bundle);
             context.startActivity(intent);
+
+            SaveKey("user", "");
+            SaveKey("password", "");
+            SaveKey("language", "");
+
         }
         catch (Exception e) {
-            Log.e(TAG,"LogoutReceiver.processDataForLogout: ", e);
+            Log.e("processDataForLogout","LogoutReceiver.processDataForLogout: ", e);
         }
     }
 }
