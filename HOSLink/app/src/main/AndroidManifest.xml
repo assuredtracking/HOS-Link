@@ -19,23 +19,26 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainDashBoard"
             android:configChanges="orientation|screenSize"
             android:label="Main Dashboard"
-            android:windowSoftInputMode="stateHidden" />
-
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleTop"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".DiagnosticActivity"
             android:configChanges="orientation|screenSize"
             android:label="Diagnostic Information"
             android:windowSoftInputMode="stateHidden" />
-
         <receiver
             android:name=".receivers.ECMReceiver"
             android:enabled="true"
@@ -44,7 +47,6 @@
                 <action android:name="ACTION_ECM_VALUES" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receivers.ELDReceiver"
             android:enabled="true"
@@ -52,6 +54,7 @@
             <intent-filter>
                 <action android:name="ACTION_ELD_RESPONSE" />
                 <action android:name="ACTION_DRIVERS_IN_ELD_RESPONSE" />
+                <action android:name="ACTION_LOGOUT_DRIVER" />
             </intent-filter>
         </receiver>
     </application>

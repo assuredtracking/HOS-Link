@@ -1,7 +1,5 @@
 package com.hos.hoslink;
 
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;

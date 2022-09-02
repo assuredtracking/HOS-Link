@@ -1,5 +1,7 @@
 package com.hos.hoslink.receivers;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +21,19 @@ public class ELDReceiver extends BroadcastReceiver {
             if (Core.ACTION_ELD_RESPONSE.equals(intent.getAction()) && intent.getExtras() != null) {
                 Bundle bundle = intent.getExtras();
                 if (bundle != null && bundle.containsKey("message")) {
-                    Intent i = new Intent(context, MainDashBoard.class);
+                    Intent i = new Intent(context, MainDashBoard.class).putExtras(bundle);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.setAction(Core.ACTION_ELD_LOGIN_RESPONSE);
                     context.startActivity(i);
-                    Toast.makeText(context, bundle.getString("message"), Toast.LENGTH_LONG).show();
+                    if (bundle.getInt("code") == 1){
+                        Toast.makeText(context, "Response code: " + bundle.getInt("code") + ", Message: " + bundle.getString("message"), Toast.LENGTH_LONG).show();
+                    }
                 }
-            } else if (Core.ACTION_DRIVERS_IN_ELD_RESPONSE.equals(intent.getAction()) && intent.getExtras() != null) {
+            }
+            else if (intent.getAction() != null && intent.getAction().equals(Core.ACTION_LOGOUT_DRIVER)) {
+                processDataForLogout(context, intent.getExtras(), intent.getAction());
+            }
+            else if (Core.ACTION_DRIVERS_IN_ELD_RESPONSE.equals(intent.getAction()) && intent.getExtras() != null) {
                 Bundle bundle = intent.getExtras();
                 if (bundle != null && bundle.containsKey("drivers")) {
                     List<String> drivers = bundle.getStringArrayList("drivers");
@@ -49,6 +58,19 @@ public class ELDReceiver extends BroadcastReceiver {
             }
         } catch (Exception e) {
             Log.d("ELDReceiver", e.getMessage());
+        }
+    }
+
+    private void processDataForLogout(Context context, Bundle bundle, String action) {
+        try {
+            Intent intent = new Intent(context, MainDashBoard.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setAction(action);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+        }
+        catch (Exception e) {
+            Log.e(TAG,"LogoutReceiver.processDataForLogout: ", e);
         }
     }
 }

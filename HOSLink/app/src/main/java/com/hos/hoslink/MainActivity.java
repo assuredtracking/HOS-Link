@@ -13,12 +13,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btnLogin;
-    private EditText etUserName, etPassword;
+    private TextInputLayout etUserName, etPassword;
     private Spinner lenguages_spinner;
 
     @Override
@@ -33,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         btnLogin = findViewById(R.id.btnLogin);
-        etUserName = findViewById(R.id.etUser);
-        etPassword = findViewById(R.id.etPass);
+        etUserName = findViewById(R.id.tilUsername);
+        etPassword = findViewById(R.id.tilPassword);
 
         lenguages_spinner = findViewById(R.id.lenguages_spinner);
         ArrayList<String> lenguageOption = new ArrayList<>();
@@ -50,30 +53,27 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterLenguageOption = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lenguageOption);
         adapterLenguageOption.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lenguages_spinner.setAdapter(adapterLenguageOption);
-        lenguages_spinner.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    lenguages_spinner.setSelection(0);
-                } catch (Exception e) {
-                }
+        lenguages_spinner.post(() -> {
+            try {
+                lenguages_spinner.setSelection(0);
+            }
+            catch (Exception e) {
+
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (etUserName.getText().toString().length() == 0 || etPassword.getText().toString().length() == 0) {
-                    Toast.makeText(MainActivity.this, "Fill Required fields", Toast.LENGTH_LONG).show();
-                }else {
-                    SaveKey("user", etUserName.getText().toString());
-                    SaveKey("password", etPassword.getText().toString());
-                    int indexLang = lenguages_spinner.getSelectedItemPosition();
-                    SaveKey("language", lenOption.get(indexLang));
-                    Intent intent = new Intent(MainActivity.this, MainDashBoard.class);
-                    startActivity(intent);
-                    finish();
-                }
+        btnLogin.setOnClickListener(v -> {
+            if (etUserName.getEditText().getText().toString().length() == 0 || etPassword.getEditText().getText().toString().length() == 0) {
+                Toast.makeText(MainActivity.this, "Fill Required fields", Toast.LENGTH_LONG).show();
+            }
+            else {
+                SaveKey("user", etUserName.getEditText().getText().toString().trim());
+                SaveKey("password", etPassword.getEditText().getText().toString().trim());
+                int indexLang = lenguages_spinner.getSelectedItemPosition();
+                SaveKey("language", lenOption.get(indexLang));
+                Intent intent = new Intent(MainActivity.this, MainDashBoard.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -97,5 +97,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return value;
     }
-
 }
