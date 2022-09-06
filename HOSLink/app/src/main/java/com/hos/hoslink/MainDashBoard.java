@@ -42,6 +42,7 @@ public class MainDashBoard extends AppCompatActivity {
             SaveKey("user", "");
             SaveKey("password", "");
             SaveKey("language", "");
+            getIntent().setAction("");
             Intent intent = new Intent(MainDashBoard.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -142,7 +143,9 @@ public class MainDashBoard extends AppCompatActivity {
             SharedPreferences.Editor edit = example.edit();
             edit.putString(key, value);
             edit.commit();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
+
         }
     }
 
@@ -151,7 +154,9 @@ public class MainDashBoard extends AppCompatActivity {
         try {
             SharedPreferences example = MyApplication.GetAppContext().getSharedPreferences("data", 0);
             value = example.getString(key, "");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
+
         }
         return value;
     }
