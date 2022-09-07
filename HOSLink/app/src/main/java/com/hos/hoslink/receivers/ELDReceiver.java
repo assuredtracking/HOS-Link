@@ -12,29 +12,32 @@ import android.widget.Toast;
 import com.hos.hoslink.MainDashBoard;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ELDReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
+            Bundle bundle = intent.getExtras();
             if (Core.ACTION_ELD_RESPONSE.equals(intent.getAction()) && intent.getExtras() != null) {
-                Bundle bundle = intent.getExtras();
                 if (bundle != null && bundle.containsKey("message")) {
                     Intent i = new Intent(context, MainDashBoard.class).putExtras(bundle);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     i.setAction(Core.ACTION_ELD_LOGIN_RESPONSE);
                     context.startActivity(i);
-                    if (bundle.getInt("code") == 0){
-                        Toast.makeText(context, "Response code: " + bundle.getInt("code") + ", Message: " + bundle.getString("message"), Toast.LENGTH_LONG).show();
-                    }
+                    String text = "Response code: " + bundle.getInt("code");
+                    if(!bundle.getString("message").isEmpty())
+                        text += ", message: " + bundle.getString("message");
+                    Toast.makeText(context, text, Toast.LENGTH_LONG).show();
                 }
             }
             else if (intent.getAction() != null && intent.getAction().equals(Core.ACTION_LOGOUT_DRIVER)) {
+                String text = "Response code: " + bundle.getInt("code");
+                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
                 processDataForLogout(context, intent.getExtras(), intent.getAction());
             }
             else if (Core.ACTION_DRIVERS_IN_ELD_RESPONSE.equals(intent.getAction()) && intent.getExtras() != null) {
-                Bundle bundle = intent.getExtras();
                 if (bundle != null && bundle.containsKey("drivers")) {
                     List<String> drivers = bundle.getStringArrayList("drivers");
                     String driversNames = "";
@@ -63,16 +66,14 @@ public class ELDReceiver extends BroadcastReceiver {
 
     private void processDataForLogout(Context context, Bundle bundle, String action) {
         try {
+            SaveKey("user", "");
+            SaveKey("password", "");
+            SaveKey("language", "");
             Intent intent = new Intent(context, MainDashBoard.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.setAction(action);
             intent.putExtras(bundle);
             context.startActivity(intent);
-
-            SaveKey("user", "");
-            SaveKey("password", "");
-            SaveKey("language", "");
-
         }
         catch (Exception e) {
             Log.e("processDataForLogout","LogoutReceiver.processDataForLogout: ", e);

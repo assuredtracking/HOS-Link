@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 
@@ -76,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        MaterialTextView mtvVersion = findViewById(R.id.mtvVersion);
+        String versionName = "version " + BuildConfig.VERSION_NAME;
+        mtvVersion.setText(versionName);
     }
 
     public static void SaveKey(String key, String value) {

@@ -2,55 +2,61 @@ package com.hos.hoslink;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.textview.MaterialTextView;
 import com.hos.hoslink.receivers.Core;
 
 public class MainDashBoard extends AppCompatActivity {
-    LinearLayout llBtnELD, llBtnECM, llBtnDrivers;
-    ImageView ivLogout;
-    TextView tvUserName;
-    SwitchMaterial switchCoDriver;
-    String user = "";
-    String password = "";
-    String language = "";
+
+    private LinearLayout llBtnELD, llBtnECM, llBtnDrivers;
+    private ImageView ivLogout;
+    private TextView tvUserName;
+    private SwitchMaterial switchCoDriver;
+    private String user = "";
+    private String password = "";
+    private String language = "";
     private Button btnLogout;
+    private MaterialTextView mtvVersion;
+
+    private String pkgName = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dash);
 
-        if (getIntent().getAction() != null && getIntent().getAction().equals(Core.ACTION_ELD_LOGIN_RESPONSE)){
-            if (getIntent().getIntExtra("code", 0) == 1){
-                String text = "User Logged";
-                if(!getIntent().getStringExtra("message").isEmpty())
-                    text += getIntent().getStringExtra("message");
-                Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG).show();
-            }
-        }
-        else if (getIntent().getAction() != null && getIntent().getAction().equals(Core.ACTION_LOGOUT_DRIVER)){
-            SaveKey("user", "");
-            SaveKey("password", "");
-            SaveKey("language", "");
-            getIntent().setAction("");
-            Intent intent = new Intent(MainDashBoard.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+        isPackageInstalled("apolloVEO.hos");
+        if (pkgName.isEmpty()){
+            isPackageInstalled("apollo.hos");
         }
 
         user = GetValue("user");
         password = GetValue("password");
         language = GetValue("language");
+
+        if (user.isEmpty() || password.isEmpty()){
+            Intent intent = new Intent(MainDashBoard.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        if (getIntent().getAction() != null && getIntent().getAction().equals(Core.ACTION_LOGOUT_DRIVER)){
+            Intent intent = new Intent(MainDashBoard.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         llBtnELD = findViewById(R.id.llBtnELD);
         llBtnECM = findViewById(R.id.llBtnECM);
@@ -59,6 +65,9 @@ public class MainDashBoard extends AppCompatActivity {
         tvUserName = findViewById(R.id.tvUserName);
         switchCoDriver = findViewById(R.id.switchCoDriver);
         btnLogout = findViewById(R.id.btnLogout);
+        mtvVersion = findViewById(R.id.mtvVersion);
+        String versionName = "version " + BuildConfig.VERSION_NAME;
+        mtvVersion.setText(versionName);
 
         tvUserName.setText(user);
         switchCoDriver.setChecked(false);
@@ -74,6 +83,10 @@ public class MainDashBoard extends AppCompatActivity {
             if(language == null || language.length() == 0){
                 validate = false;
             }
+            if (pkgName.isEmpty()) {
+                validate = false;
+                Toast.makeText(this, "Install Apollo ELD or Veosphere in this device", Toast.LENGTH_SHORT).show();
+            }
             if(validate){
                 Intent intent = new Intent();
                 intent.setAction(Core.ACTION_LOGIN_DRIVER);
@@ -84,33 +97,40 @@ public class MainDashBoard extends AppCompatActivity {
                 bundle.putString("password", password);
                 bundle.putString("language", language);
                 bundle.putInt("coDriver", switchCoDriver.isChecked() ? 1 : 0);
-                intent.setPackage("apollo.hos");// Only if necessary after API 30 Android 11 (Package Name App Receiver)
+                intent.setPackage(pkgName);// Only if necessary after API 30 Android 11 (Package Name App Receiver)
                 bundle.putString("packageName", MyApplication.GetAppContext().getPackageName());
                 intent.putExtras(bundle);
                 //Broadcast to ELD app
                 sendBroadcast(intent);
                 finish();
             }
-            else {
-                ivLogout.callOnClick();
-            }
         });
 
         llBtnECM.setOnClickListener(v -> {
-            Intent intent = new Intent(MainDashBoard.this, DiagnosticActivity.class);
-            startActivity(intent);
+            if (pkgName.isEmpty()) {
+                Toast.makeText(this, "Install Apollo ELD or Veosphere in this device", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Intent intent = new Intent(MainDashBoard.this, DiagnosticActivity.class);
+                startActivity(intent);   
+            }
         });
 
         llBtnDrivers.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setAction(Core.ACTION_DRIVERS_IN_ELD_REQUEST);
-            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.setPackage("apollo.hos");// Only if necessary after API 30 Android 11 (Package Name App Receiver)
-            Bundle bundle = new Bundle();
-            bundle.putString("packageName", MyApplication.GetAppContext().getPackageName());
-            intent.putExtras(bundle);
-            //Broadcast to ELD app
-            sendBroadcast(intent);
+            if (pkgName.isEmpty()) {
+                Toast.makeText(this, "Install Apollo ELD or Veosphere in this device", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Intent intent = new Intent();
+                intent.setAction(Core.ACTION_DRIVERS_IN_ELD_REQUEST);
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                intent.setPackage(pkgName);// Only if necessary after API 30 Android 11 (Package Name App Receiver)
+                Bundle bundle = new Bundle();
+                bundle.putString("packageName", MyApplication.GetAppContext().getPackageName());
+                intent.putExtras(bundle);
+                //Broadcast to ELD app
+                sendBroadcast(intent);
+            }
         });
 
         ivLogout.setOnClickListener(v -> {
@@ -123,17 +143,22 @@ public class MainDashBoard extends AppCompatActivity {
         });
 
         btnLogout.setOnClickListener(view -> {
-            Intent intent = new Intent();
-            intent.setAction(Core.ACTION_LOGOUT_DRIVER);
-            intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            intent.setPackage("apollo.hos"); // Only if necessary after API 30 Android 11 (Package Name App Receiver)
-            Bundle bundle = new Bundle();
-            bundle.putString("packageName", MyApplication.GetAppContext().getPackageName());
-            bundle.putString("user", GetValue("user"));
-            intent.putExtras(bundle);
-            //Broadcast to ELD app
-            sendBroadcast(intent);
-            finish();
+            if (pkgName.isEmpty()) {
+                Toast.makeText(this, "Install Apollo ELD or Veosphere in this device", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Intent intent = new Intent();
+                intent.setAction(Core.ACTION_LOGOUT_DRIVER);
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                intent.setPackage(pkgName); // Only if necessary after API 30 Android 11 (Package Name App Receiver)
+                Bundle bundle = new Bundle();
+                bundle.putString("packageName", MyApplication.GetAppContext().getPackageName());
+                bundle.putString("user", GetValue("user"));
+                intent.putExtras(bundle);
+                //Broadcast to ELD app
+                sendBroadcast(intent);
+                finish();
+            }
         });
     }
 
@@ -161,8 +186,20 @@ public class MainDashBoard extends AppCompatActivity {
         return value;
     }
 
+    private void isPackageInstalled(String packageName) {
+        try {
+            PackageManager packageManager = getPackageManager();
+            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            pkgName = packageName;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            Log.e("ERROR", "MainDashBoard: isPackageInstalled: ", e);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 }
