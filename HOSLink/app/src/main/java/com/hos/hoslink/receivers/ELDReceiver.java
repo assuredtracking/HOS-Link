@@ -21,11 +21,13 @@ public class ELDReceiver extends BroadcastReceiver {
         try {
             Bundle bundle = intent.getExtras();
             if (Core.ACTION_ELD_RESPONSE.equals(intent.getAction()) && intent.getExtras() != null) {
-                if (bundle != null && bundle.containsKey("message")) {
-                    Intent i = new Intent(context, MainDashBoard.class).putExtras(bundle);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    i.setAction(Core.ACTION_ELD_LOGIN_RESPONSE);
-                    context.startActivity(i);
+                if (bundle != null && bundle.containsKey("code") && bundle.containsKey("message")) {
+                    if (bundle.getInt("code", 0) != 2){
+                        Intent i = new Intent(context, MainDashBoard.class).putExtras(bundle);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        i.setAction(Core.ACTION_ELD_LOGIN_RESPONSE);
+                        context.startActivity(i);
+                    }
                     String text = "Response code: " + bundle.getInt("code");
                     if(!bundle.getString("message").isEmpty())
                         text += ", message: " + bundle.getString("message");
