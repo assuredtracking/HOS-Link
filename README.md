@@ -191,12 +191,7 @@ ECM_FIRMWARE = "FIRMWARE";
 
 # Documentation
 
-
-[MOO_Android_HOS_Link_Version_1.0_08282022.pdf](https://github.com/assuredtracking/HOS-Link/files/9509049/MOO_Android_HOS_Link_Version_1.0_08282022.pdf)
-
-APK HOS-Link
-
-[HOSLink v1.2.zip](https://github.com/assuredtracking/HOS-Link/files/9509050/HOSLink.v1.2.zip)
+[MOO_Android_HOS_Link_Version_1.3_09082022.pdf](https://github.com/assuredtracking/HOS-Link/files/9530298/MOO_Android_HOS_Link_Version_1.3_09082022.pdf)
 
 # Developed By
 
