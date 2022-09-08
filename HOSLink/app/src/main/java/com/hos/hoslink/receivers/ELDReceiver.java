@@ -20,23 +20,30 @@ public class ELDReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         try {
             Bundle bundle = intent.getExtras();
+            String text = "";
+            if (bundle != null){
+                if (bundle.containsKey("code")){
+                    text = "Response code: " + bundle.getInt("code");
+                }
+                if (bundle.containsKey("message")){
+                    text += ", message: " + bundle.getString("message");
+                }
+            }
             if (Core.ACTION_ELD_RESPONSE.equals(intent.getAction()) && intent.getExtras() != null) {
-                if (bundle != null && bundle.containsKey("code") && bundle.containsKey("message")) {
-                    if (bundle.getInt("code", 0) != 2){
-                        Intent i = new Intent(context, MainDashBoard.class).putExtras(bundle);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        i.setAction(Core.ACTION_ELD_LOGIN_RESPONSE);
-                        context.startActivity(i);
-                    }
-                    String text = "Response code: " + bundle.getInt("code");
-                    if(!bundle.getString("message").isEmpty())
-                        text += ", message: " + bundle.getString("message");
+                if (bundle != null && bundle.containsKey("code") && bundle.getInt("code", 0) != 2){
+                    Intent i = new Intent(context, MainDashBoard.class).putExtras(bundle);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.setAction(Core.ACTION_ELD_LOGIN_RESPONSE);
+                    context.startActivity(i);
+                }
+                if (!text.isEmpty()) {
                     Toast.makeText(context, text, Toast.LENGTH_LONG).show();
                 }
             }
             else if (intent.getAction() != null && intent.getAction().equals(Core.ACTION_LOGOUT_DRIVER)) {
-                String text = "Response code: " + bundle.getInt("code");
-                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+                if (!text.isEmpty()) {
+                    Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+                }
                 processDataForLogout(context, intent.getExtras(), intent.getAction());
             }
             else if (Core.ACTION_DRIVERS_IN_ELD_RESPONSE.equals(intent.getAction()) && intent.getExtras() != null) {
